@@ -34,7 +34,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-      #if no changing version number, this will keep latest 3 branches
+      # manage package versions shows the date in which branch was created, not executed
+      # if no changing version number, this will keep latest 3 branches BY BRANCH CREATION
       - uses: actions/delete-package-versions@v4
         with: 
           package-name: 'giis.samples-gh-packages'
