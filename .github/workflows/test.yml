@@ -70,6 +70,6 @@ jobs:
           delete-only-pre-release-versions: "true"
 
       - name: Deploy to GitHub packages
-        run: mvn deploy DskipTests=true -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+        run: mvn deploy -DskipTests=true -Dmaven.test.failure.ignore=true -U --no-transfer-progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
