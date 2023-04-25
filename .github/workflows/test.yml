@@ -5,9 +5,9 @@ on:
       - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
     tags-ignore:
       - 'v*' #avoids rerun existing commit on release
-  pull_request:
-    branches:
-      - 'main'
+  #pull_request:
+  #  branches:
+  #    - 'main'
   workflow_dispatch: #allow manual run
   
 permissions:
