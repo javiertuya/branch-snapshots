@@ -1,8 +1,8 @@
 name: test-all
 on:
   push:
-    branches-ignore:
-      - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
+    #branches-ignore:
+    #  - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
     tags-ignore:
       - 'v*' #avoids rerun existing commit on release
   pull_request:
