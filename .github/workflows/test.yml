@@ -34,10 +34,10 @@ jobs:
           BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
         run: |
           oldversion=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
-          echo "Old Version ${oldversion}"
+          echo "Renaming old version: ${oldversion}"
           version=${oldversion//-SNAPSHOT/}
           version=${version}-${BRANCH_NAME}-SNAPSHOT
-          echo "New Version $version"
+          echo "to new Version: $version"
           mvn versions:set -DnewVersion=$version --no-transfer-progress
       # manage package versions shows the date in which branch was created, not executed
       # if no changing version number, this will keep latest 3 branches BY BRANCH CREATION
