@@ -1,8 +1,8 @@
 name: test-all
 on:
   push:
-    #branches-ignore:
-    #  - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
+    branches-ignore:
+      - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
     tags-ignore:
       - 'v*' #avoids rerun existing commit on release
   pull_request:
@@ -52,7 +52,6 @@ jobs:
           delete-only-pre-release-versions: "true"
 
       - name: Build and test
-        if: env.BRANCH_NAME != 'dependabot/*'
         run: mvn deploy -Dmaven.test.failure.ignore=true -U --no-transfer-progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
