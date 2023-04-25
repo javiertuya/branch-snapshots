@@ -31,3 +31,5 @@ jobs:
 
       - name: Build and test
         run: mvn deploy -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
