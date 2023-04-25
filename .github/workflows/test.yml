@@ -33,6 +33,8 @@ jobs:
 
   publish-snapshot:
     needs: [test-java]
+    #avoid publishing for dependabot branches
+    if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
     #defaults:
     #  run:
