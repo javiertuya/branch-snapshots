@@ -52,7 +52,7 @@ jobs:
           delete-only-pre-release-versions: "true"
 
       - name: Build and test
-        if: ${{ BRANCH_NAME != 'dependabot/*' }}
+        if: env.BRANCH_NAME != 'dependabot/*'
         run: mvn deploy -Dmaven.test.failure.ignore=true -U --no-transfer-progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
