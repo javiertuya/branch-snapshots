@@ -38,5 +38,5 @@ jobs:
         with: 
           package-name: 'giis.samples-gh-packages'
           package-type: 'maven'
-          min-versions-to-keep: 10
+          min-versions-to-keep: 3
           delete-only-pre-release-versions: "true"
