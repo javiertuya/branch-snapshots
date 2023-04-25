@@ -29,16 +29,23 @@ jobs:
           java-version: '8'
           cache: 'maven'
 
-      - name: Build and test
-        run: mvn deploy -Dmaven.test.failure.ignore=true -U --no-transfer-progress
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       # manage package versions shows the date in which branch was created, not executed
       # if no changing version number, this will keep latest 3 branches BY BRANCH CREATION
+      # because of this, deletion must be BEFORE deploy (if not, a version of old branch can be deleted after being updated)
+      # TODO check exclude current branch
       - uses: actions/delete-package-versions@v4
         with: 
           package-name: 'giis.samples-gh-packages'
           package-type: 'maven'
           min-versions-to-keep: 3
           delete-only-pre-release-versions: "true"
+        with: 
+          package-name: 'giis.samples-gh-packages'
+          package-type: 'maven'
+          min-versions-to-keep: 2
+          delete-only-pre-release-versions: "true"
+
+      - name: Build and test
+        run: mvn deploy -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
