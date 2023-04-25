@@ -34,6 +34,7 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
+      #if no changing version number, this will keep latest 3 branches
       - uses: actions/delete-package-versions@v4
         with: 
           package-name: 'giis.samples-gh-packages'
