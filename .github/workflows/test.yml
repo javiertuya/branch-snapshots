@@ -33,3 +33,10 @@ jobs:
         run: mvn deploy -Dmaven.test.failure.ignore=true -U --no-transfer-progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - uses: actions/delete-package-versions@v4
+        with: 
+          package-name: 'giis.samples-gh-packages'
+          package-type: 'maven'
+          min-versions-to-keep: 10
+          delete-only-pre-release-versions: "true"
