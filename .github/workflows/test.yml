@@ -29,6 +29,9 @@ jobs:
           java-version: '8'
           cache: 'maven'
 
+      - name: Rename version to branch-SNAPSHOT
+        run: echo $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+        
       # manage package versions shows the date in which branch was created, not executed
       # if no changing version number, this will keep latest 3 branches BY BRANCH CREATION
       # because of this, deletion must be BEFORE deploy (if not, a version of old branch can be deleted after being updated)
