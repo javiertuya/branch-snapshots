@@ -50,11 +50,11 @@
 	</build>
 
 	<distributionManagement>
-   		<repository>
+   		<snapshotRepository>
 			<id>github</id>
 			<name>GitHub javiertuya Apache Maven Packages</name>
 			<url>https://maven.pkg.github.com/javiertuya/samples-gh-packages</url>
-		</repository>
+		</snapshotRepository>
 	</distributionManagement>
 
 </project>
