@@ -3,7 +3,7 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>giis</groupId>
-	<artifactId>samples-gh-packages</artifactId>
+	<artifactId>branch-snapshots</artifactId>
 	<version>1.0.0-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<organization>
@@ -30,6 +30,19 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>3.2.1</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>3.5.0</version>
 				<configuration>
@@ -48,4 +61,76 @@
 			</plugin>
 		</plugins>
 	</build>
+
+	<developers>
+		<developer>
+			<id>javiertuya</id>
+			<name>Javier Tuya</name>
+			<url>http://giis.uniovi.es</url>
+		</developer>
+	</developers>
+
+	<licenses>
+		<license>
+			<name>MIT</name>
+			<url>https://github.com/javiertuya/visual-assert/blob/main/LICENSE</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<url>https://github.com/javiertuya/visual-assert</url>
+	</scm>
+
+	<!-- To publish packages (mvn deploy) a profile must be specified (github for snapsots and maven central for releases) -->
+	<profiles>
+		<profile>
+			<id>publish-github</id>
+				<distributionManagement>
+   					<snapshotRepository>
+						<id>github</id>
+						<name>GitHub javiertuya Apache Maven Packages</name>
+						<url>https://maven.pkg.github.com/javiertuya/branch-snapshots</url>
+					</snapshotRepository>
+				</distributionManagement>
+		</profile>
+		<profile>
+			<id>publish-maven</id>
+				<build>
+					<plugins>
+						<plugin>
+							<groupId>org.sonatype.plugins</groupId>
+							<artifactId>nexus-staging-maven-plugin</artifactId>
+							<version>1.6.13</version>
+							<extensions>true</extensions>
+							<configuration>
+								<serverId>ossrh</serverId>
+								<nexusUrl>https://s01.oss.sonatype.org/</nexusUrl>
+								<autoReleaseAfterClose>true</autoReleaseAfterClose>
+							</configuration>
+						</plugin>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-gpg-plugin</artifactId>
+							<version>3.0.1</version>
+							<executions>
+								<execution>
+									<id>sign-artifacts</id>
+									<phase>verify</phase>
+									<goals>
+										<goal>sign</goal>
+									</goals>
+								</execution>
+							</executions>
+						</plugin>
+					</plugins>
+				</build>
+				<distributionManagement>
+					<repository>
+						<id>ossrh</id>
+						<url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+					</repository>
+				</distributionManagement>
+		</profile>
+	</profiles>
+
 </project>
