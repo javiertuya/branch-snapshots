@@ -13,6 +13,7 @@ permissions:
   contents: read
   packages: write
 
+
 jobs:
   test-java:
     runs-on: ubuntu-latest
