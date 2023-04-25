@@ -19,6 +19,24 @@ jobs:
     #defaults:
     #  run:
     #    working-directory: java
+    steps:
+      - name: Checkout GitHub repo
+        uses: actions/checkout@v3
+      - name: Select Java Version
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: '8'
+          cache: 'maven'
+      - name: Build and test
+        run: mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+
+  publish-snapshot:
+    needs: [test-java]
+    runs-on: ubuntu-latest
+    #defaults:
+    #  run:
+    #    working-directory: java
     env:
       BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
     steps:
@@ -51,7 +69,7 @@ jobs:
           min-versions-to-keep: 2
           delete-only-pre-release-versions: "true"
 
-      - name: Build and test
-        run: mvn deploy -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+      - name: Deploy to GitHub packages
+        run: mvn deploy DskipTests=true -Dmaven.test.failure.ignore=true -U --no-transfer-progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
