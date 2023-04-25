@@ -25,4 +25,4 @@ jobs:
           cache: 'maven'
 
       - name: Build and test
-        run: mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
+        run: mvn deploy -Dmaven.test.failure.ignore=true -U --no-transfer-progress
