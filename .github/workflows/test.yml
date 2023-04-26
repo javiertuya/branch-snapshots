@@ -68,6 +68,7 @@ jobs:
       # if no changing version number, this will keep latest 2 branches BY BRANCH CREATION
       # because of this, deletion must be done BEFORE deploy (if not, a version of old branch can be deleted after being updated)
       # TODO check how to exclude current branch
+      # NOTE package must exist, if not the build fails
       - uses: actions/delete-package-versions@v4
         with: 
           package-name: 'giis.branch-snapshots'
