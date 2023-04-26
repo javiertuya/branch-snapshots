@@ -5,6 +5,6 @@ public class Demo {
 		return s.toUpperCase();
 	}
 	public int getValue() {
-		return 3;
+		return 4;
 	}
 }
