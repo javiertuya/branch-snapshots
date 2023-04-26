@@ -36,7 +36,7 @@ jobs:
         run: mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
 
   publish-java-snapshot:
-    needs: [test-java]
+    #needs: [test-java]
     #avoid publishing dependabot branches
     if: ${{ github.actor != 'dependabot[bot]' }}
     runs-on: ubuntu-latest
@@ -68,18 +68,16 @@ jobs:
       # if no changing version number, this will keep latest 2 branches BY BRANCH CREATION
       # because of this, deletion must be done BEFORE deploy (if not, a version of old branch can be deleted after being updated)
       # TODO check how to exclude current branch
-      # NOTE package must exist, if not the build fails
+      # NOTE at least one package must exist, if not the build fails (comment for the first build)
+      - uses: actions/delete-package-versions@v4
+        with: 
+          package-name: 'giis.branch-snapshots'
+          package-type: 'maven'
+          min-versions-to-keep: 2
+          delete-only-pre-release-versions: "true"
 
       # note that deploy uses the profile that specifies the github repository server
       - name: Deploy to GitHub packages
         run: mvn deploy -P publish-github -DskipTests=true -Dmaven.test.failure.ignore=true -U --no-transfer-progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      - uses: actions/delete-package-versions@v4
-        with: 
-          package-name: 'giis.branch-snapshots'
-          package-type: 'maven'
-          min-versions-to-keep: 1
-          ignore-versions: "-${BRANCH_NAME}-SNAPSHOT"
-          delete-only-pre-release-versions: "true"
-          
