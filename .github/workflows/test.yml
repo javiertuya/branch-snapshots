@@ -69,15 +69,16 @@ jobs:
       # because of this, deletion must be done BEFORE deploy (if not, a version of old branch can be deleted after being updated)
       # TODO check how to exclude current branch
       # NOTE package must exist, if not the build fails
-      - uses: actions/delete-package-versions@v4
-        with: 
-          package-name: 'giis.branch-snapshots'
-          package-type: 'maven'
-          min-versions-to-keep: 2
-          delete-only-pre-release-versions: "true"
 
       # note that deploy uses the profile that specifies the github repository server
       - name: Deploy to GitHub packages
         run: mvn deploy -P publish-github -DskipTests=true -Dmaven.test.failure.ignore=true -U --no-transfer-progress
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - uses: actions/delete-package-versions@v4
+        with: 
+          package-name: 'giis.branch-snapshots'
+          package-type: 'maven'
+          min-versions-to-keep: 1
+          ignore-versions: "-${BRANCH_NAME}-SNAPSHOT"
+          delete-only-pre-release-versions: "true"
