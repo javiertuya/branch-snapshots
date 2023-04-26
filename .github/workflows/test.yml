@@ -82,3 +82,4 @@ jobs:
           min-versions-to-keep: 1
           ignore-versions: "-${BRANCH_NAME}-SNAPSHOT"
           delete-only-pre-release-versions: "true"
+          
