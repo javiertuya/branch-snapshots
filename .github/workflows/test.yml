@@ -5,12 +5,9 @@ on:
       - 'dependabot/**' #avoid duplicates: only run the PR, not the commit
     tags-ignore:
       - 'v*' #avoids rerun existing commit on release
-  #commented to avoid duplciate run on pr from local branches
-  #pull_request:
-  #  branches:
-  #    - 'main'
-  #TODO check what happens for pr from forks, maybe using the event pull_request_target:
-  #https://github.blog/2020-08-03-github-actions-improvements-for-fork-and-pull-request-workflows/
+  pull_request:
+    branches:
+      - 'main'
   workflow_dispatch: #allow manual run
   
 permissions:
@@ -36,9 +33,8 @@ jobs:
         run: mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
 
   publish-java-snapshot:
-    #needs: [test-java]
-    #avoid publishing dependabot branches
-    if: ${{ github.actor != 'dependabot[bot]' }}
+    #avoid publishing PRs and dependabot branches
+    if: ${{ github.event_name != 'pull_request' && !contains('/head/refs/dependabot/', github.ref) }}
     runs-on: ubuntu-latest
     #defaults:
     #  run:
