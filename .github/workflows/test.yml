@@ -33,7 +33,7 @@ jobs:
         run: mvn test -Dmaven.test.failure.ignore=true -U --no-transfer-progress
 
   publish-java-snapshot:
-    #avoid publishing PRs and dependabot branches
+    #avoid publishing PRs and dependabot branches 
     if: github.event_name != 'pull_request' && !contains('/head/refs/dependabot/', github.ref_name)
     runs-on: ubuntu-latest
     #defaults:
