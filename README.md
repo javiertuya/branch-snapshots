@@ -3,6 +3,7 @@
 This is a sample on how to publish branch snapshots to the GitHub Maven registry:
 - A GitHub Actions workflow with a job `publish-java-snapshot` that publishes
   independent snapshots for each branch, in the form `<version number>-<branch name>-SNAPSHOT`.
+- Uses a reusable Action: https://github.com/javiertuya/branch-snapshots-action.
 - The project pom.xml that includes the necessary configuration to publish the snapshots to GitHub Packages and the releases to Maven Central
 
 Detailed information on GitHub Packages can be found here:
@@ -12,7 +13,7 @@ To consume (install) the snapshots from a local development environment, Jenkins
 
 ## Configure the pom.xml (common to all environments)
 
-Declare the GitHub repository in the pom.xml, example:
+Declare the GitHub repository in the pom.xml (you can specify * instead of the repo name), example:
 ```xml
   <repositories>
     <repository>
