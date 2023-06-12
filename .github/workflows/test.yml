@@ -45,7 +45,7 @@ jobs:
       # NOTE1: If package to delete does not exist this action will fail:
       # First time that a package is published `delete-old-versions`, must be set to false
       # NOTE2: deploy args use the profile `publish-github` that specifies the github repository server (see pom.xml)
-      - uses: javiertuya/branch-snapshots-action@main
+      - uses: javiertuya/branch-snapshots-action@v1.0.0
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
           java-version: '8'
