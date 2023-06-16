@@ -36,20 +36,12 @@ jobs:
     #avoid publishing PRs and dependabot branches
     if: ${{ github.event_name != 'pull_request' && !contains('/head/refs/dependabot/', github.ref) }}
     runs-on: ubuntu-latest
-    #defaults:
-    #  run:
-    #    working-directory: java
-    #env:
-    #  BRANCH_NAME: ${{ github.head_ref || github.ref_name }} 
     steps:
-      # NOTE1: If package to delete does not exist this action will fail:
-      # First time that a package is published `delete-old-versions`, must be set to false
-      # NOTE2: deploy args use the profile `publish-github` that specifies the github repository server (see pom.xml)
-      - uses: javiertuya/branch-snapshots-action@v1.0.0
+      # NOTE: deploy args use the profile `publish-github` that specifies the github repository server (see pom.xml)
+      - uses: javiertuya/branch-snapshots-action@v1.1.0
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
           java-version: '8'
-          mvn-deploy-args: '-P publish-github -DskipTests=true -Dmaven.test.failure.ignore=true -U --no-transfer-progress'
-          package-name: 'giis.branch-snapshots'
-          delete-old-versions: true
-          min-versions-to-keep: 4
+          mvn-deploy-args: '-P publish-github -DskipTests=true -Dmaven.test.failure.ignore=false -U --no-transfer-progress'
+          delete-old-snapshots: true
+          min-snapshots-to-keep: 4
