@@ -38,7 +38,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       # NOTE: deploy args use the profile `publish-github` that specifies the github repository server (see pom.xml)
-      - uses: javiertuya/branch-snapshots-action@v1.1.0
+      - uses: javiertuya/branch-snapshots-action@v1.2.2
         with: 
           token: ${{ secrets.GITHUB_TOKEN }}
           java-version: '8'
