@@ -22,7 +22,7 @@ jobs:
     #    working-directory: java
     steps:
       - name: Checkout GitHub repo
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
       - name: Select Java Version
         uses: actions/setup-java@v5
         with:
