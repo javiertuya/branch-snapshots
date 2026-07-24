@@ -2,3 +2,8 @@ target
 .sonar
 TESTS-TestSuites.xml
 
+
+# Eclipse specific settings
+.project
+.classpath
+.settings/
